@@ -15,6 +15,7 @@ https://arxiv.org/abs/2403.14602
 https://garibida.github.io/ReNoise-Inversion/
 
 ### 🖼 Output
+![image](https://github.com/camenduru/ReNoise-Inversion-replicate/assets/54370274/627a1e92-9bde-430c-a0cc-3e2fe3f5da7a)
 
 ### 🏢 Sponsor
 https://replicate.com
