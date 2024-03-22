@@ -106,8 +106,8 @@ class Predictor(BasePredictor):
     def predict(
         self,
         Input_Image: Path = Input(description="Input Image"),
-        Source_Prompt: str = Input(default=""),
-        Target_Prompt: str = Input(default=""),
+        Source_Prompt: str = Input(default="A kitten is sitting in a basket on a branch"),
+        Target_Prompt: str = Input(default="a lego kitten is sitting in a basket on a branch"),
         Denoise_Classifier_Free_Guidence_Scale: float = Input(default=1.0),
         Number_of_ReNoise_Iterations: int = Input(default=1.0),
         Inversion_Strength: float = Input(default=1.0),
@@ -136,23 +136,5 @@ class Predictor(BasePredictor):
                                     Preform_Noise_Correction,
                                     self.model_type, self.scheduler_type, self.image_size, self.pipe_inversion, self.pipe_inference, self.cache_size, self.prev_configs,
                                     self.prev_inv_latents, self.prev_images, self.prev_noises)
-        return Path(output_image)
-
-import os
-from cog import BasePredictor, Input, Path
-from pyngrok import ngrok, conf
-
-class Predictor(BasePredictor):
-    def setup(self) -> None:
-        directory = "/content"
-        if not os.path.exists(directory):
-            os.mkdir(directory)
-    def predict(
-        self,
-        token: str = Input()
-    ) -> str:
-        conf.get_default().auth_token = token
-        public_url = ngrok.connect(7860).public_url
-        print(public_url)
-        os.system(f"jupyter notebook --allow-root --port 7860 --ip 0.0.0.0 --NotebookApp.token '' --no-browse --notebook-dir /content")
-        return public_url
+        output_image.save("/content/image.png")
+        return Path("/content/image.png")
